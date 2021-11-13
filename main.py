@@ -4,9 +4,24 @@ from routers import test
 from sql_app.models import fault_evaluation_model
 from sql_app.database import engine
 from sklearn.model_selection import KFold
+import csv 
 
 app = FastAPI()
 
+
+def toCSV(file):
+    with open(file, newline='',encoding='utf-8-sig') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=';')
+        data = {}
+        for row in spamreader:
+            key = row[0]
+            value = row[1]
+            data[key] = value
+        pyFile = open("products.py","x")
+        pyFile.write(str(data))
+        pyFile.close()
+
+toCSV("zProdukt.csv")
 
 app.add_middleware(
     CORSMiddleware,
