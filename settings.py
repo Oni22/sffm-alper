@@ -1,4 +1,5 @@
-from pydantic import BaseSettings
+from pydantic import BaseSettings 
+#Parsing-Bibliothek, welche die Basis-Einstellungen der Datenbank festlegt
 
 class Settings(BaseSettings):
     DB_NAME: str
@@ -9,3 +10,5 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+        
+#Basis-Einstellungen der Datenbank

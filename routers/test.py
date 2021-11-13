@@ -38,4 +38,3 @@ def test(db : Session = Depends(get_db)):
     faults = db.query(FaultEvaluationModel).all()
     return faults
 
-

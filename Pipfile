@@ -4,13 +4,20 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fastapi = "*"
+fastapi = {extras = ["all"], version = "*"}
 uvicorn = {extras = ["standard"], version = "*"}
 sqlalchemy = "*"
 psycopg2-binary = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
 python-jose = {extras = ["cryptography"], version = "*"}
 uuid = "*"
+pandas = "*"
+numpy = "*"
+sklearn = "*"
+scikit-learn = "*"
+matplotlib = "*"
+pydotplus = "*"
+pydot = "*"
 
 [dev-packages]
 
