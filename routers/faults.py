@@ -42,7 +42,7 @@ def getFault(fault_id: str,db : Session = Depends(get_db)):
 
 
 @router.get("",status_code=200)
-def gteAllFaults(db : Session = Depends(get_db)):
+def getAllFaults(db : Session = Depends(get_db)):
     faults = db.query(FaultEvaluationModel).all()
     return faults
 
