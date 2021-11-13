@@ -6,6 +6,7 @@ from dependencies import get_db
 from sql_app.models.fault_evaluation_model import FaultEvaluationModel
 import datetime
 from sql_app.schema.fault_eveluation_schema import FaultSchema
+from sklearn.model_selection import KFold
 
 router = APIRouter(
     prefix="/fault",
