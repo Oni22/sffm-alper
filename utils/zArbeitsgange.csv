@@ -191,8 +191,8 @@ SBT Finale Kontrolle Block;189
 SBT FRT ;190
 SBT GISMO;191
 SBT Grund-/ Feinreinigung;192
-"SBT IFM 24"" Fläche";193
-"SBT Interferometer 24"" Horizontal ";194
+SBT IFM 24 Fläche;193
+SBT Interferometer 24 Horizontal ;194
 SBT ISA BEA optional;195
 SBT ISA Konstantabtrag;196
 SBT Kitten Block;197
@@ -205,10 +205,10 @@ SBT -Polieren Personell;203
 SBT Schnellpolieren 1.Blockfläche B;204
 SBT Schnellpolieren 2.Blockfläche A;205
 SBT Simulationsrechnung ISA optional ;206
-"SBT Zygo 24"" nach C polieren";207
-"SBT Zygo 24"" nach ISA optional";208
-"SBT Zygo 24"" Person OSM ";209
-"SBT Zygo 24"" vor ISA";210
+SBT Zygo 24 nach C polieren;207
+SBT Zygo 24 nach ISA optional;208
+SBT Zygo 24 Person OSM ;209
+SBT Zygo 24 vor ISA;210
 SBT Zygo Ausbau Stackmessung Person OSM ;211
 SBT Zygo Stackmessung;212
 SBT Zygomessung Person OSM;213
@@ -241,7 +241,7 @@ WE Syrgenstein;238
 ab-/ umkitten LBC;240
 Abkitten LBC;241
 absprengen;242
-"am 24 "" Interferometer messen";243
+am 24 Interferometer messen;243
 Auskitten LBC;244
 Auswäsche;245
 Auswäsche LBC;246
@@ -257,7 +257,7 @@ einkitten in Kitt-Tool  4 Spuren 90°;255
 Einwinkeln;256
 Entspannungsätzen;257
 fasen von Hand (im Fasenraum);258
-"Interferometer 18"" Horizontal";259
+Interferometer 18 Horizontal;259
 Interferometer Line Beam;260
 ISA 2. Run (incl. Simulation);261
 ISA 3. Run (incl. Simulation);262
@@ -293,5 +293,5 @@ umsprengen;291
 Verpacken in Seidenpapier zum Versand zu;292
 Wareneingang von Tegla;293
 Wetzen  nur wenn notwendig;294
-"Zygo 24""";295
+Zygo 24;295
 Zygo- Messung;296

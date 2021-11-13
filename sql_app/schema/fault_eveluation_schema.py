@@ -8,7 +8,6 @@ class FaultSchema(BaseModel):
     department: str
     product: str
     dispolevel: str
-    timestamp: str
     estimated_down_time: int
 
     class Config:
