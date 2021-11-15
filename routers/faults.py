@@ -8,6 +8,8 @@ import datetime
 from sql_app.schema.fault_eveluation_schema import FaultSchema
 from sklearn.model_selection import KFold
 
+#nodejs
+
 router = APIRouter(
     prefix="/fault",
 )
