@@ -1,12 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,HTTPException
 from fastapi.params import Depends
 from sqlalchemy.orm.session import Session
 from starlette.requests import Request
 from dependencies import get_db
 from sql_app.models.fault_evaluation_model import FaultEvaluationModel
 import datetime
+from utils import workspace, faultReason, products
 from sql_app.schema.fault_eveluation_schema import FaultSchema
-from sklearn.model_selection import KFold
 
 #nodejs
 
@@ -14,20 +14,27 @@ router = APIRouter(
     prefix="/fault",
 )
 
+
+
 @router.post("",response_model=FaultSchema,status_code=200)
 def addFault(faultRequest: FaultSchema):
-    fault = FaultEvaluationModel(
-        reason=faultRequest.reason,
-        category=faultRequest.category,
-        workplace=faultRequest.workplace,
-        department=faultRequest.department,
-        product=faultRequest.product,
-        dispolevel=faultRequest.dispolevel,
-        timestamp=datetime.datetime.now().isoformat(),
-        estimated_down_time=faultRequest.estimated_down_time
-        )
-    fault.save()
-    return fault
+    
+    try:
+        fault = FaultEvaluationModel(
+            reason=faultReason.faultReason[faultRequest.reason] if faultRequest.reason in faultReason.faultReason  else "unknown",
+            category=faultRequest.category,
+            workplace= workspace.workspace[faultRequest.workplace] if faultRequest.workplace in workspace.workspace   else "unknown",
+            department=faultRequest.department,
+            product=products.products[faultRequest.product] if faultRequest.product in products.products else "unknown",
+            dispolevel=faultRequest.dispolevel,
+            timestamp=datetime.datetime.now().isoformat(),
+            estimated_down_time=faultRequest.estimated_down_time
+            )
+        fault.save()
+        return fault
+    except Exception as e:
+        print(e)
+        raise HTTPException(detail=str(e),status_code=400)
 
 
 @router.get("/{fault_id}",response_model=FaultSchema,status_code=200)
@@ -37,7 +44,7 @@ def getFault(fault_id: str,db : Session = Depends(get_db)):
 
 
 @router.get("",status_code=200)
-def test(db : Session = Depends(get_db)):
+def getAllFaults(db : Session = Depends(get_db)):
     faults = db.query(FaultEvaluationModel).all()
     return faults
 

@@ -1,27 +1,22 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware 
-from routers import test
+from routers import faults
 from sql_app.models import fault_evaluation_model
 from sql_app.database import engine
-from sklearn.model_selection import KFold
-import csv 
+from starlette.requests import Request
+from starlette.responses import Response
 
 app = FastAPI()
 
 
-def toCSV(file):
-    with open(file, newline='',encoding='utf-8-sig') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=';')
-        data = {}
-        for row in spamreader:
-            key = row[0]
-            value = row[1]
-            data[key] = value
-        pyFile = open("products.py","x")
-        pyFile.write(str(data))
-        pyFile.close()
+async def catch_exceptions_middleware(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except Exception as e:
+        print(e)
+        return Response(str(e), status_code=500)
 
-toCSV("zProdukt.csv")
+app.middleware('http')(catch_exceptions_middleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -33,7 +28,7 @@ app.add_middleware(
 
 fault_evaluation_model.BaseModel.metadata.create_all(bind=engine)
 
-app.include_router(test.router)
+app.include_router(faults.router)
 
 
 # conda create -n NAME
