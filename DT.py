@@ -10,13 +10,13 @@ database = pd.read_csv('stoerungsauswertung.csv',delimiter=';')
 features = ['Fehlergrund', 'Arbeitsgang','Produkt']
 x = database[features]
 y = database['Maßnahme']
-X_train, X_test, y_train, y_test = train_test_split (x,y, test_size=0.20 , random_state= 100)
+# X_train, X_test, y_train, y_test = train_test_split (x,y, test_size=0.20 , random_state= 100)
 
-classifier= DecisionTreeClassifier()
-classifier.fit(X_train,y_train)
-y_pred_en=classifier.predict(X_test)
-print("Accuracy:", accuracy_score(y_test, y_pred_en))
-print("CR:", classification_report(y_test,y_pred_en))
+# classifier= DecisionTreeClassifier()
+# classifier.fit(X_train,y_train)
+# y_pred_en=classifier.predict(X_test)
+# print("Accuracy:", accuracy_score(y_test, y_pred_en))
+# print("CR:", classification_report(y_test,y_pred_en))
 
 clf = tree.DecisionTreeClassifier()
 clf = clf.fit(x,y)
