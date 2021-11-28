@@ -5,8 +5,13 @@ from starlette.requests import Request
 from dependencies import get_db
 from sql_app.models.fault_evaluation_model import FaultEvaluationModel
 import datetime
+from sql_app.schema.dt_schema import DTSchema
 from utils import workspace, faultReason, products
 from sql_app.schema.fault_eveluation_schema import FaultSchema
+from sklearn import tree
+import pandas as pd
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
 
 #nodejs
 
@@ -28,7 +33,7 @@ def addFault(faultRequest: FaultSchema):
             product=products.products[faultRequest.product] if faultRequest.product in products.products else "unknown",
             dispolevel=faultRequest.dispolevel,
             timestamp=datetime.datetime.now().isoformat(),
-            estimated_down_time=faultRequest.estimated_down_time
+            # estimated_down_time=faultRequest.estimated_down_time
             )
         fault.save()
         return fault
@@ -48,3 +53,27 @@ def getAllFaults(db : Session = Depends(get_db)):
     faults = db.query(FaultEvaluationModel).all()
     return faults
 
+@router.post("/analyze",status_code=200)
+def analyzeFault(dtSchema: DTSchema):
+    reason = int(dtSchema.reason)
+    workplace = int(dtSchema.workplace)
+    product = int(dtSchema.product)
+
+    database = pd.read_csv('stoerungsauswertung.csv',delimiter=';')
+    features = ['Fehlergrund', 'Arbeitsgang','Produkt']
+    x = database[features]
+    y = database['Maßnahme']
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(x,y)
+    pred = clf.predict([[reason,workplace,product]])
+
+    X = database.iloc[:, [0,2]].values  
+    y = database.iloc[:, 8].values
+    classifier2 = KNeighborsClassifier(n_neighbors=6) 
+    classifier2.fit(X,y)
+    knn = classifier2.predict([[reason,workplace]])
+
+    return {
+        "action": pred.tolist(),
+        "downtime": knn.tolist()
+    }

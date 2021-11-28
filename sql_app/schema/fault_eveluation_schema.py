@@ -8,7 +8,7 @@ class FaultSchema(BaseModel):
     department: str
     product: str
     dispolevel: str
-    estimated_down_time: int
+    # estimated_down_time: int
 
     class Config:
         orm_mode = True
