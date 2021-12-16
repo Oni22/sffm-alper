@@ -87,10 +87,10 @@ def getAllFaults(db : Session = Depends(get_db)):
 #WICHTIG EINZUSTELEN! Es ein neues SolutionEvaluationModel, welches die Daten aus den PDCA Einträgen abspeichert und mit der Oberfläche kommuniziert
 
 @router.post("/analyze",status_code=200)
-def analyzeFault(dtSchema: DTSchema):
-    reason = int(dtSchema.reason)
-    workplace = int(dtSchema.workplace)
-    product = int(dtSchema.product)
+def analyzeFault(faultSchema: FaultSchema,db : Session = Depends(get_db)):
+    reason = int(faultSchema.reason)
+    workplace = int(faultSchema.workplace)
+    product = int(faultSchema.product)
 
     database = pd.read_csv('stoerungsauswertung.csv',delimiter=';')
     features = ['Fehlergrund', 'Arbeitsgang','Produkt']
@@ -105,6 +105,10 @@ def analyzeFault(dtSchema: DTSchema):
     classifier2 = KNeighborsClassifier(n_neighbors=6) 
     classifier2.fit(X,y)
     knn = classifier2.predict([[reason,workplace]])
+
+    fault = db.query(FaultEvaluationModel).filter_by(id=faultSchema.id).first()
+    fault.estimated_down_time = list(knn.tolist())[0]
+    db.commit()
 
     return {
         "action": pred.tolist(),
