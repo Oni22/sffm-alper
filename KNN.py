@@ -14,20 +14,25 @@ from matplotlib import colors
 
 #Daten entnehmen
 dataset = pd.read_csv('stoerungsauswertung.csv',delimiter=";")   
-#Daten trennen
+
+#Daten zuweisen
 X = dataset.iloc[:, [0,1]].values  
 y = dataset.iloc[:, 3].values
 
-# X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0, test_size=0.2)
-# #Daten skalieren (alle Daten zw. -1 und 1)
-# sc_X = StandardScaler() 
-# X_train = sc_X.fit_transform(X_train)
-# X_test = sc_X.transform(X_test)
-# #Model aufstellen
-# classifier = KNeighborsClassifier(n_neighbors=6, metric="euclidean") 
-# classifier.fit(X_train,y_train)
-# #testergebnisse predicten
-# y_pred = classifier.predict(X_test) 
+#Traingsdaten und Testdaten trennen
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0, test_size=0.2)
+
+#Daten skalieren (alle Daten zw. -1 und 1)
+sc_X = StandardScaler() 
+X_train = sc_X.fit_transform(X_train)
+X_test = sc_X.transform(X_test)
+
+#Model aufstellen
+classifier = KNeighborsClassifier(n_neighbors=6, metric="euclidean") 
+classifier.fit(X_train,y_train)
+
+#testergebnisse predicten
+y_pred = classifier.predict(X_test) 
 
 #neu Daten predicten
 classifier2 = KNeighborsClassifier(n_neighbors=6) 

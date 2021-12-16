@@ -8,18 +8,15 @@ import datetime
 from sql_app.schema.dt_schema import DTSchema
 from utils import workspace, faultReason, products
 from sql_app.schema.fault_eveluation_schema import FaultSchema
+# from sql_app.schema.pdca_eveluation_schema import SolutionSchema
 from sklearn import tree
 import pandas as pd
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
-#nodejs
-
 router = APIRouter(
     prefix="/fault",
 )
-
-
 
 @router.post("",response_model=FaultSchema,status_code=200)
 def addFault(faultRequest: FaultSchema):
@@ -53,6 +50,42 @@ def getAllFaults(db : Session = Depends(get_db)):
     faults = db.query(FaultEvaluationModel).all()
     return faults
 
+# @router.post("",response_model=SolutionSchema,status_code=200)
+# def addPDCA(solutionRequest: SolutionSchema):
+    
+#     try:
+#         fault = SolutionEvaluationModel(
+#             title=solutionTitle.solutionTitle[solutionRequest.title] if solutionRequest.title in solutionTitle.solutionTitle  else "unknown",
+#             titleTags=solutionRequest.titleTags,
+#             newCauses=solutionRequest.newCauses,
+#             downtime=solutionDowntime.solutionDowntime[solutionRequest.downtime] if solutionRequest.downtime in solutionDowntime.solutionDowntime  else "unknown",
+#             shortTimeAction=solutionRequest.shortTimeAction,
+#             longTimeAction=solutionRequest.shortTimeAction,
+#             ressources=solutionRequest.ressources,
+#             results=solutionRequest.results,
+#             specifications=solutionRequest.specifications,
+#             standards=solutionRequest.standards,
+#             timestamp=datetime.datetime.now().isoformat(),
+#             )
+#         fault.save()
+#         return fault
+#     except Exception as e:
+#         print(e)
+#         raise HTTPException(detail=str(e),status_code=400)    
+
+# @router.get("/{fault_id}",response_model=FaultSchema,status_code=200)
+# def getPDCA(fault_id: str,db : Session = Depends(get_db)):
+#     solution = db.query(FaultEvaluationModel).filter_by(id=fault_id).first()
+#     return solution
+
+
+# @router.get("",status_code=200)
+# def getAllPDCA(db : Session = Depends(get_db)):
+#     solutions = db.query(FaultEvaluationModel).all()
+#     return solutions
+
+#WICHTIG EINZUSTELEN! Es ein neues SolutionEvaluationModel, welches die Daten aus den PDCA Einträgen abspeichert und mit der Oberfläche kommuniziert
+
 @router.post("/analyze",status_code=200)
 def analyzeFault(dtSchema: DTSchema):
     reason = int(dtSchema.reason)
@@ -67,8 +100,8 @@ def analyzeFault(dtSchema: DTSchema):
     clf = clf.fit(x,y)
     pred = clf.predict([[reason,workplace,product]])
 
-    X = database.iloc[:, [0,2]].values  
-    y = database.iloc[:, 8].values
+    X = database.iloc[:, [0,1]].values  
+    y = database.iloc[:, 3].values
     classifier2 = KNeighborsClassifier(n_neighbors=6) 
     classifier2.fit(X,y)
     knn = classifier2.predict([[reason,workplace]])

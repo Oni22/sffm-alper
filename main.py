@@ -29,9 +29,3 @@ app.add_middleware(
 fault_evaluation_model.BaseModel.metadata.create_all(bind=engine)
 
 app.include_router(faults.router)
-
-
-# conda create -n NAME
-# conda activate NAME
-# WIR BENUTZEN NICHT PIPENV SHELL WEGEN SKLEARN WIR INSTALLIEREN ALLES IN CONDA
-# conda/pip install <ALL PACKAGES>
