@@ -13,6 +13,9 @@
 #     results: str
 #     specifications: str
 #     standards: str
+#     userName: str
+#     processDuration: str
+#     currentPhase: str
 
 #     class Config:
 #         orm_mode = True

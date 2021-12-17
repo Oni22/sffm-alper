@@ -65,6 +65,9 @@ def getAllFaults(db : Session = Depends(get_db)):
 #             results=solutionRequest.results,
 #             specifications=solutionRequest.specifications,
 #             standards=solutionRequest.standards,
+#             userName=solutionRequest.userName,
+#             currentPhase=solutionRequest.currentPhase,
+#             processDuration=solutionRequest.processDuration,
 #             timestamp=datetime.datetime.now().isoformat(),
 #             )
 #         fault.save()
@@ -83,8 +86,6 @@ def getAllFaults(db : Session = Depends(get_db)):
 # def getAllPDCA(db : Session = Depends(get_db)):
 #     solutions = db.query(FaultEvaluationModel).all()
 #     return solutions
-
-#WICHTIG EINZUSTELEN! Es ein neues SolutionEvaluationModel, welches die Daten aus den PDCA Einträgen abspeichert und mit der Oberfläche kommuniziert
 
 @router.post("/analyze",status_code=200)
 def analyzeFault(faultSchema: FaultSchema,db : Session = Depends(get_db)):

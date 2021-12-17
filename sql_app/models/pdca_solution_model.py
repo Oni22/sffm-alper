@@ -27,7 +27,9 @@
 #         self.results = results
 #         self.specifications = specifications
 #         self.standards = standards
-#         #Autor etc angeben!
+#         self.userName = userName
+#         self.currentPhase = currentPhase
+#         self.processDuration = processDuration
 #         self.timestamp = timestamp
 
 
@@ -43,5 +45,8 @@
 #     results = Column(String,nullable=False)
 #     specifications = Column(String,nullable=False)
 #     standards = Column(String,nullable=False)
+#     userName = Column(String,nullable=False)
+#     currentPhase = Column(String,nullable=False)
+#     processDuration = Column(String,nullable=False)
 #     timestamp = Column(String,nullable=False)
 
