@@ -1,52 +1,50 @@
 
-# from sqlalchemy.sql.sqltypes import Integer
-# from sql_app.models.base_model import BaseModel
-# from sqlalchemy import Column, String
+from sqlalchemy.sql.sqltypes import ARRAY, Integer
+from sql_app.models.base_model import BaseModel
+from sqlalchemy import Column, String
 
 
-# class pdcaSolutionModel(BaseModel):
-#     __table_args__ = {'schema': 'alon'}
-#     __tablename__= "pdca_solution"
+class PDCASolutionModel(BaseModel):
+    __table_args__ = {'schema': 'alon'}
+    __tablename__ = "pdca"
 
-#     def __init__(self,id=None,title=None,titleTags=None,newCauses=None,category=None,estimated_down_time=None,shortTimeAction=None,longTimeAction=None,ressources=None,goals=None,results=None,specifications=None,standards=None,timestamp=None):
-    
-#         if id is None:
-#             self.id = self.create_uuid()
-#         else:
-#             self.id = id
+    def __init__(self,username=None,currentPhase=None, duration=None,id=None, title=None, titleTags=None, newCauses=None, category=None, downtime=None, shortTimeAction=None, longTimeAction=None, resources=None, goals=None, results=None, specifications=None, standards=None, timestamp=None):
 
-#         self.title = title
-#         self.titleTags = titleTags
-#         self.newCauses = newCauses
-#         self.category = category
-#         self.estimated_down_time = estimated_down_time
-#         self.shortTimeAction = shortTimeAction
-#         self.longTimeAction = longTimeAction
-#         self.ressources = ressources
-#         self.goals = goals
-#         self.results = results
-#         self.specifications = specifications
-#         self.standards = standards
-#         self.userName = userName
-#         self.currentPhase = currentPhase
-#         self.processDuration = processDuration
-#         self.timestamp = timestamp
+        if id is None:
+            self.id = self.create_uuid()
+        else:
+            self.id = id
 
+        self.title = title
+        self.title_tags = titleTags
+        self.new_causes = newCauses
+        self.category = category
+        self.downtime = downtime
+        self.short_time_actions = shortTimeAction
+        self.long_time_actions = longTimeAction
+        self.resources = resources
+        self.goals = goals
+        self.results = results
+        self.specifications = specifications
+        self.standards = standards
+        self.username = username
+        self.current_phase = currentPhase
+        self.duration = duration
+        self.timestamp = timestamp
 
-#     id = Column(String,primary_key=True)
-#     title = Column(String,nullable=False)
-#     titleTags = Column(String,nullable=False)
-#     newCauses = Column(String,nullable=False)
-#     estimated_down_time = Column(Integer,nullable=False)
-#     shortTimeAction = Column(String,nullable=False)
-#     longTimeAction = Column(String,nullable=False)
-#     ressources = Column(String,nullable=False)
-#     goals = Column(String,nullable=False)
-#     results = Column(String,nullable=False)
-#     specifications = Column(String,nullable=False)
-#     standards = Column(String,nullable=False)
-#     userName = Column(String,nullable=False)
-#     currentPhase = Column(String,nullable=False)
-#     processDuration = Column(String,nullable=False)
-#     timestamp = Column(String,nullable=False)
-
+    id = Column(String, primary_key=True)
+    title = Column(String, nullable=True)
+    title_tags = Column(ARRAY(String), nullable=True)
+    new_causes = Column(ARRAY(String), nullable=True)
+    downtime = Column(String, nullable=True)
+    short_time_actions = Column(ARRAY(String), nullable=True)
+    long_time_actions = Column(ARRAY(String), nullable=True)
+    resources = Column(ARRAY(String), nullable=True)
+    goals = Column(ARRAY(String), nullable=True)
+    results = Column(ARRAY(String), nullable=True)
+    specifications = Column(ARRAY(String), nullable=True)
+    standards = Column(ARRAY(String), nullable=True)
+    username = Column(String, nullable=True)
+    current_phase = Column(String, nullable=True)
+    duration = Column(String, nullable=True)
+    timestamp = Column(String, nullable=True)

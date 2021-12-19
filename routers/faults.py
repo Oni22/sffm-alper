@@ -50,43 +50,6 @@ def getAllFaults(db : Session = Depends(get_db)):
     faults = db.query(FaultEvaluationModel).all()
     return faults
 
-# @router.post("",response_model=SolutionSchema,status_code=200)
-# def addPDCA(solutionRequest: SolutionSchema):
-    
-#     try:
-#         fault = SolutionEvaluationModel(
-#             title=solutionTitle.solutionTitle[solutionRequest.title] if solutionRequest.title in solutionTitle.solutionTitle  else "unknown",
-#             titleTags=solutionRequest.titleTags,
-#             newCauses=solutionRequest.newCauses,
-#             downtime=solutionDowntime.solutionDowntime[solutionRequest.downtime] if solutionRequest.downtime in solutionDowntime.solutionDowntime  else "unknown",
-#             shortTimeAction=solutionRequest.shortTimeAction,
-#             longTimeAction=solutionRequest.shortTimeAction,
-#             ressources=solutionRequest.ressources,
-#             results=solutionRequest.results,
-#             specifications=solutionRequest.specifications,
-#             standards=solutionRequest.standards,
-#             userName=solutionRequest.userName,
-#             currentPhase=solutionRequest.currentPhase,
-#             processDuration=solutionRequest.processDuration,
-#             timestamp=datetime.datetime.now().isoformat(),
-#             )
-#         fault.save()
-#         return fault
-#     except Exception as e:
-#         print(e)
-#         raise HTTPException(detail=str(e),status_code=400)    
-
-# @router.get("/{fault_id}",response_model=FaultSchema,status_code=200)
-# def getPDCA(fault_id: str,db : Session = Depends(get_db)):
-#     solution = db.query(FaultEvaluationModel).filter_by(id=fault_id).first()
-#     return solution
-
-
-# @router.get("",status_code=200)
-# def getAllPDCA(db : Session = Depends(get_db)):
-#     solutions = db.query(FaultEvaluationModel).all()
-#     return solutions
-
 @router.post("/analyze",status_code=200)
 def analyzeFault(faultSchema: FaultSchema,db : Session = Depends(get_db)):
     reason = int(faultSchema.reason)

@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware 
 from routers import faults
+from routers import pdca
+
 from sql_app.models import fault_evaluation_model
 from sql_app.database import engine
 from starlette.requests import Request
@@ -29,3 +31,4 @@ app.add_middleware(
 fault_evaluation_model.BaseModel.metadata.create_all(bind=engine)
 
 app.include_router(faults.router)
+app.include_router(pdca.router)
