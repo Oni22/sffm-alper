@@ -8,7 +8,6 @@ import datetime
 from sql_app.schema.dt_schema import DTSchema
 from utils import workspace, faultReason, products
 from sql_app.schema.fault_eveluation_schema import FaultSchema
-# from sql_app.schema.pdca_eveluation_schema import SolutionSchema
 from sklearn import tree
 import pandas as pd
 import numpy as np

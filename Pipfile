@@ -18,6 +18,7 @@ scikit-learn = "*"
 matplotlib = "*"
 pydotplus = "*"
 pydot = "*"
+psycopg2 = "*"
 
 [dev-packages]
 autopep8 = "*"

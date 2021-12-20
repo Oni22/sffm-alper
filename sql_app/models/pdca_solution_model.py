@@ -20,12 +20,12 @@ class PDCASolutionModel(BaseModel):
         self.new_causes = newCauses
         self.category = category
         self.downtime = downtime
+        self.resources = resources
         self.short_time_actions = shortTimeAction
         self.long_time_actions = longTimeAction
-        self.resources = resources
-        self.goals = goals
         self.results = results
         self.specifications = specifications
+        self.goals = goals
         self.standards = standards
         self.username = username
         self.current_phase = currentPhase
