@@ -22,10 +22,13 @@ def addFault(faultRequest: FaultSchema):
     
     try:
         fault = FaultEvaluationModel(
+            #reason=faultRequest.reason,    
             reason=faultReason.faultReason[faultRequest.reason] if faultRequest.reason in faultReason.faultReason  else "unknown",
             category=faultRequest.category,
+            #workplace=faultRequest.workplace,
             workplace= workspace.workspace[faultRequest.workplace] if faultRequest.workplace in workspace.workspace   else "unknown",
             department=faultRequest.department,
+            #product=faultRequest.product,
             product=products.products[faultRequest.product] if faultRequest.product in products.products else "unknown",
             dispolevel=faultRequest.dispolevel,
             timestamp=datetime.datetime.now().isoformat(),
