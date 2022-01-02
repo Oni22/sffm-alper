@@ -7,9 +7,17 @@ from sql_app.models import fault_evaluation_model
 from sql_app.database import engine
 from starlette.requests import Request
 from starlette.responses import Response
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 async def catch_exceptions_middleware(request: Request, call_next):
     try:

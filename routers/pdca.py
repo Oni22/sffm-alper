@@ -45,7 +45,7 @@ def addPDCA(pdcaSchema: PDCASchema):
 
 
 @router.post("/{pdca_id}",status_code=200,response_model=PDCASchema)
-def addPDCA(pdcaSchema: PDCASchema,pdca_id: str,db : Session = Depends(get_db)):
+def upadatePDCA(pdcaSchema: PDCASchema,pdca_id: str,db : Session = Depends(get_db)):
     try:
         pdca = db.query(PDCASolutionModel).filter_by(id=pdca_id).first()
         print(pdca.new_causes)
