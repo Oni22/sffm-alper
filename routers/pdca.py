@@ -46,6 +46,7 @@ def addPDCA(pdcaSchema: PDCASchema):
 
 @router.post("/{pdca_id}",status_code=200,response_model=PDCASchema)
 def upadatePDCA(pdcaSchema: PDCASchema,pdca_id: str,db : Session = Depends(get_db)):
+    print("HALLO")
     try:
         pdca = db.query(PDCASolutionModel).filter_by(id=pdca_id).first()
         print(pdca.new_causes)
@@ -57,33 +58,33 @@ def upadatePDCA(pdcaSchema: PDCASchema,pdca_id: str,db : Session = Depends(get_d
                 pdca.title_tags.extend(pdcaSchema.title_tags),
             
             if pdcaSchema.new_causes is not None and len(pdcaSchema.new_causes) > 0:
-                pdca.new_causes = set(pdca.new_causes + pdcaSchema.new_causes)
+                pdca.new_causes = pdcaSchema.new_causes
             
             if pdcaSchema.category is not None and len(pdcaSchema.category) > 0:
-                pdca.category = set(pdca.category + pdcaSchema.category)
+                pdca.category = pdcaSchema.category
             
             pdca.downtime= pdcaSchema.downtime if pdcaSchema.downtime is not None else pdca.downtime,
 
             if pdcaSchema.resources is not None and len(pdcaSchema.resources) > 0:
-                pdca.resources = set(pdca.resources + pdcaSchema.resources)
+                pdca.resources = pdcaSchema.resources
 
             if pdcaSchema.short_time_actions is not None and len(pdcaSchema.short_time_actions) > 0:
-                pdca.short_time_actions = set(pdca.short_time_actions + pdcaSchema.short_time_actions)
+                pdca.short_time_actions = pdcaSchema.short_time_actions
 
             if pdcaSchema.long_time_actions is not None and len(pdcaSchema.long_time_actions) > 0:
-                pdca.long_time_actions = set(pdca.long_time_actions + pdcaSchema.long_time_actions)
+                pdca.long_time_actions = pdcaSchema.long_time_actions
 
             if pdcaSchema.results is not None and len(pdcaSchema.results) > 0:
-                pdca.results = set(pdca.results + pdcaSchema.results)
+                pdca.results = pdcaSchema.results
 
             if pdcaSchema.specifications is not None and len(pdcaSchema.specifications) > 0:
-                pdca.specifications = set(pdca.specifications + pdcaSchema.specifications)
+                pdca.specifications = pdcaSchema.specifications
 
             if pdcaSchema.goals is not None and len(pdcaSchema.goals) > 0:
-                pdca.goals = set(pdca.goals + pdcaSchema.goals)
+                pdca.goals = pdcaSchema.goals
 
             if pdcaSchema.standards is not None and len(pdcaSchema.standards) > 0:
-                pdca.standards = set(pdca.standards + pdcaSchema.standards)
+                pdca.standards = pdcaSchema.standards
             
             pdca.username= pdcaSchema.username if pdcaSchema.username is not None else pdca.username,
 
